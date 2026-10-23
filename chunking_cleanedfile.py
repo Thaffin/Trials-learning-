@@ -1,3 +1,35 @@
+import json
+import logging
+from pathlib import Path
+
+# Assumes this script is saved in the lawbot2 project root.
+ROOT_DIR = Path(__file__).resolve().parent
+
+INPUT_FILE = (
+    ROOT_DIR / "data" / "raw" / "cleaned"
+    / "indian_law_combined_cleaned.json"
+)
+OUTPUT_DIR = ROOT_DIR / "data" / "chunked"
+OUTPUT_FILE = OUTPUT_DIR / "indian_law_chunks.json"
+LOG_DIR = ROOT_DIR / "logs"
+LOG_FILE = LOG_DIR / "lawbot.log"
+
+CHUNK_SIZE = 200
+CHUNK_OVERLAP = 30
+
+
+def split_into_chunks(text, chunk_size=CHUNK_SIZE,
+                      overlap=CHUNK_OVERLAP):
+    """Split text into word chunks with a small overlap."""
+    words = text.split()
+
+    if not words:
+        return []
+
+    if chunk_size <= 0 or overlap < 0 or overlap >= chunk_size:
+        raise ValueError(
+            "Chunk size must be positive and overlap must be "
+            "non-negative and smaller than chunk size."
         )
 
     chunks = []
@@ -62,7 +94,7 @@ def chunk_record(record, review_items, index):
 
 def chunk_records(records):
     """Chunk all records and collect invalid records for review."""
-    all_chunks = []
+        all_chunks = []
     review_items = []
 
     for index, record in enumerate(records):
