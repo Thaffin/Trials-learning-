@@ -4,16 +4,16 @@ import re
 import logging
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent
+ROOT_DIR = Path(__file__).resolve().parent.parent
 
-INPUT_DIR = BASE_DIR / "data" / "raw"
-OUTPUT_DIR = BASE_DIR / "data" / "cleaned"
-REPORT_DIR = BASE_DIR / "reports"
-LOG_DIR = BASE_DIR / "logs"
+INPUT_DIR = ROOT_DIR / "data" / "raw"
+OUTPUT_DIR = ROOT_DIR / "data" / "raw" / "cleaned"
+REPORT_DIR = ROOT_DIR / "reports"
+LOG_DIR = ROOT_DIR / "logs"
 
 OUTPUT_FILE = OUTPUT_DIR / "indian_law_combined_cleaned.json"
 REPORT_FILE = REPORT_DIR / "cleaning_report.json"
-LOG_FILE = LOG_DIR / "cleaning.log"
+LOG_FILE = LOG_DIR / "lawbot.log"
 
 INPUT_FILES = [
     "constitution_qa.json",
